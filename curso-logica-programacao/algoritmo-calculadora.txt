@@ -1,0 +1,34 @@
+Algoritmo "calculadora"
+
+Var
+numero1,numero2,resultado: Real
+operador0,operador1,operador2,operador3,operador4: Caractere
+
+Inicio
+   operador1 <- "Soma"
+   operador2 <- "Subtração"
+   operador3 <- "Multiplicação"
+   operador4 <- "Divisão"
+   escreva("Digite o primeiro número: ")
+   leia(numero1)
+   escreva("Digite o segundo número: ")
+   leia(numero2)
+   escreva("Digite o nome do operador matemático: ")
+   leia(operador0)
+   se operador0 = operador1 entao
+      resultado <- numero1 + numero2
+      escreva("O resultado é: ", resultado)
+   fimse
+   se operador0 = operador2 entao
+      resultado <- numero1 - numero2
+      escreva("O resultado é: ", resultado)
+   fimse
+   se operador0 = operador3 entao
+      resultado <- numero1 * numero2
+      escreva("O resultado é: ", resultado)
+   fimse
+   se operador0 = operador4 entao
+      resultado <- numero1/numero2
+      escreva("O resultado é: ", resultado)
+   fimse
+Fimalgoritmo
