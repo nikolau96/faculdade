@@ -1,3 +1,5 @@
 https://scratch.mit.edu/projects/911460565
 
-Link para o game que fiz no Scratch, sendo uma atividade do curso CS50
+Atividade 1: Criação de jogo no Scratch
+
+Curso: CS50 - Módulo 0
