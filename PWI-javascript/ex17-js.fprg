@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="3.0">
+    <attributes>
+        <attribute name="name" value="ex17"/>
+        <attribute name="authors" value="Nickolas"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2023-12-13 11:00:37 "/>
+        <attribute name="created" value="Tmlja29sYXM7REVTS1RPUC1JM09JSTgyOzIwMjMtMTItMTM7IjEwOjQ0OjQ3ICI7MzA0Nw=="/>
+        <attribute name="edited" value="Tmlja29sYXM7REVTS1RPUC1JM09JSTgyOzIwMjMtMTItMTM7IjExOjAwOjM3ICI7MjszMTQ4"/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body/>
+    </function>
+    <function name="Processar" type="None" variable="">
+        <parameters/>
+        <body>
+            <input variable="Numero"/>
+            <if expression="numero&gt;0">
+                <then>
+                    <assign variable="numero" expression="positivo"/>
+                    <output expression="numero" newline="True"/>
+                </then>
+                <else>
+                    <assign variable="numero" expression="negativo"/>
+                    <output expression="numero" newline="True"/>
+                </else>
+            </if>
+            <if expression="numero%2">
+                <then>
+                    <assign variable="numero" expression="par"/>
+                    <output expression="numero" newline="True"/>
+                </then>
+                <else>
+                    <assign variable="numero" expression="negativo"/>
+                    <output expression="numero" newline="True"/>
+                </else>
+            </if>
+        </body>
+    </function>
+</flowgorithm>
