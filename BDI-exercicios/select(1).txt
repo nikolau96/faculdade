@@ -1,0 +1,59 @@
+Usando JOIN, obtenha os seguintes dados das tabelas:
+
+a) Código e descrição da diretoria, código e descrição da seção para as diretorias que tenham seção:
+SELECT diretoria.codigo, diretoria.descricao AS diretoria, secao.codigo, secao.descricao FROM diretoria JOIN secao ON secao.codigo=diretoria.secao;
+
+b) Nome do funcionário, descrição da função e salário do funcionário para as funções que tenham funcionário:
+SELECT funcionario.nome, salario.funcionario AS funcionario, funcao.descricao FROM funcionario JOIN funcao ON funcionario.nome=funcionario.funcao;
+
+c) Código e nome do banco, agência, número e descrição da conta para os bancos que tenham conta:
+SELECT banco.codigo, banco.nome AS banco, conta.agencia, conta.numero, conta.descricao FROM banco JOIN conta ON conta.descricao=banco.conta;
+
+d) Código e descrição da seção, nome, salário e data de nascimento do funcionário, para as seções que tenham funcionário:
+SELECT secao.codigo, secao.descricao AS secao, funcionario.nome, funcionario.salario, funcionario.data_nascimento FROM funcionario JOIN secao ON funcionario.nome=funcionario.secao;
+
+e) Código e descrição da seção, nome, salário e data de nascimento do funcionário, mesmo para as seções sem funcionários:
+SELECT secao.codigo, secao.descricao AS secao, funcionario.nome, funcionario.salario, funcionario.data_nascimento FROM funcionario JOIN secao;
+
+f) Nome do fabricante, modelo, cor e ano do automóvel mesmo para os fabricantes sem automóvel:
+SELECT fabricante.nome, automovel.modelo, automovel.cor, automovel.ano FROM automovel JOIN fabricante;
+
+g) Nome do funcionário, descrição da função e salário do funcionário, mesmo para as funções sem funcionário:
+SELECT funcionario.nome, funcionario.salario AS funcionario, funcao.descricao FROM funcionario JOIN secao;
+
+h) Código e descrição da seção, nome, salário e data de nascimento do funcionário, mesmo para as seções sem funcionários ou funcionários sem seção:
+SELECT secao.codigo, secao.descricao AS secao, funcionario.nome, funcionario.salario, funcionario.data_nascimento FROM funcionario JOIN secao;
+
+i) Código e nome do banco, código, agência, número e descrição da conta mesmo os bancos sem conta ou conta sem banco:
+SELECT banco.codigo, banco.nome AS banco, conta.codigo, conta.agencia, conta.numero, conta.descricao FROM conta JOIN banco;
+
+j) Descrição da diretoria, descrição da seção e nome do funcionário, para as diretorias/seções que tenham funcionários:
+SELECT diretoria.descricao, secao.descricao FROM diretoria JOIN secao ON funcionario.nome=diretoria.secao;
+
+k) Data da venda, nome da revenda, nome do cliente, modelo do automóvel para as revendas, clientes e automóveis com vendas:
+SELECT venda.data, revenda.nome, automovel.modelo AS venda, cliente.nome FROM cliente JOIN venda ON cliente.nome=cliente.venda;
+
+l) nome do fabricante, modelo e ano do automóvel e nome do cliente para fabricantes, automóveis e clientes com vendas:
+SELECT fabricante.nome FROM fabricante JOIN automovel;
+SELECT automovel.modelo, automovel.ano FROM automovel JOIN venda;
+SELECT cliente.nome FROM cliente JOIN venda;
+SELECT venda.cliente, venda.automovel, venda.fabricante FROM venda;
+
+m) Descrição da diretoria, descrição da seção e nome do funcionário, mesmo para as diretorias/seções que não tenham funcionários:
+SELECT diretoria.descricao, secao.descricao, funcionario.nome FROM diretoria JOIN funcionario;
+
+n) Descrição da diretoria, descrição da seção e nome do funcionário, mesmo para as diretorias que não tenham seções/funcionários:
+SELECT diretoria.descricao, secao.descricao, funcionario.nome FROM funcionario JOIN diretoria;
+
+o) Descrição da diretoria, descrição da seção e nome do funcionário, mesmo para as diretorias que não tenham seções/funcionários ou diretoria/secao que não tenham funcionários:
+SELECT diretoria.descricao, secao.descricao, funcionario.nome FROM funcionario JOIN diretoria;
+SELECT diretoria.descricao, secao.descricao, funcionario.nome FROM diretoria JOIN funcionario;
+
+p) Descrição da diretoria, descrição da seção e nome do funcionário, mesmo para os funcionários sem seção:
+SELECT diretoria.descricao, secao.descricao FROM diretoria JOIN secao;
+SELECT funcionario.nome FROM diretoria JOIN secao;
+
+q) Descrição da seção, nome do funcionário, descrição da função, salario do funcionário, mesmo para funcionários sem seção:
+SELECT secao.descricao FROM secao;
+SELECT funcionario.nome, funcionario.salario FROM funcionario JOIN secao;
+SELECT funcao.descricao FROM funcao JOIN secao;
