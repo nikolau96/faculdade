@@ -1,0 +1,103 @@
+Sem utilizar JOIN, obtenha os seguintes dados das tabelas:
+
+1) Matrícula, nome e salário dos funcionários da seção "MAN":
+SELECT funcionario.matricula, funcionario.nome, funcionario.salario FROM funcionario WHERE funcionario.secao='MAN';
+
+2) Modelo, ano e país dos automóveis de cor preta:
+SELECT automovel.modelo, automovel.ano, automovel.pais FROM automovel WHERE automovel.cor='preto';
+
+3) Nome, data de início e de final da participação dos participantes do projeto 02:
+SELECT participante.participante, participante.inicio, participante.final FROM participante WHERE participante.projeto='02';
+
+4) Modelo, cor e ano dos automóveis fabricados no Brasil em 2007:
+SELECT automovel.modelo, automovel.cor, (SELECT automovel.ano FROM automovel WHERE automovel.ano='2007') FROM automovel WHERE automovel.pais='Brasil';
+
+5) Nome dos analistas do projeto 01:
+SELECT participante.participante FROM participante WHERE participante.projeto='01';
+
+6) Modelo, cor e ano dos automóveis fabricados no Brasil que foram comprados em Jan/2010:
+SELECT automovel.modelo, automovel.cor, automovel.ano, (SELECT automovel.pais FROM automovel WHERE automovel.pais='Brasil') FROM automovel WHERE pais BETWEEN '2010-01-01' AND '2010-01-31';
+
+7) Data e valor dos pagamentos de cartão de crédito feitos entre Fev/2012 e Mar/2012:
+SELECT lancamento.data, lancamento.valor FROM lancamento WHERE data BETWEEN '2012-02-01' AND '2012-03-30';
+
+8) Modelos dos automóveis fabricados na Argentina:
+SELECT automovel.modelo FROM automovel WHERE automovel.pais='Argentina';
+
+9) Nome dos programadores que desenvolvem para Android:
+SELECT participante.participante, (SELECT plataforma.descricao FROM plataforma) FROM participante WHERE plataforma.descricao='Android';
+
+10) Matrícula, nome dos funcionários e descrição da seção dos funcionários que tenham seção:
+SELECT funcionario.matricula, funcionario.nome, (SELECT secao.descricao FROM secao) FROM funcionario WHERE secao IS NOT NULL;
+
+11) Nome do fabricante, modelo, ano, cor do automóvel para os fabricantes que tenham automóvel:
+SELECT fabricante.nome, (SELECT automovel.modelo, automovel.ano, automovel.cor FROM automovel) FROM automovel WHERE fabricante.nome=fabricante.codigo;
+
+12) Descrição do produto, data e quantidade das saídas de estoque do dia 25/03/2010:
+SELECT saida.data, saida.quantidade, (SELECT produto.descricao FROM produto) FROM saida WHERE saida.data='2010-03-25';
+
+13) Modelo, cor e ano dos automóveis vendidos em Fev/2010:
+SELECT automovel.modelo, automovel.cor, automovel.ano FROM automovel WHERE automovel.compra BETWEEN '2010=02-01' AND '2010-02-28';
+
+14) Matrícula, nome e descrição da seção de todos os funcionários:
+SELECT funcionario.matricula, funcionario.nome, (SELECT secao.descricao FROM secao) FROM funcionario;
+
+15) Nome do participante, fase e plataforma (se não for relativo a uma plataforma específica, identificar como "Neutro") dos participantes do projeto 01:
+SELECT participante.participante, (SELECT fase.descricao FROM fase), (SELECT plataforma.descricao FROM plataforma) FROM participante WHERE participante.projeto='01';
+
+16) Matrícula, nome e descrição da diretoria de todos os funcionários:
+SELECT funcionario.matricula, funcionario.nome, (SELECT diretoria.descricao FROM diretoria) FROM funcionario WHERE funcionario.secao=diretoria.descricao;
+
+17) Nome do banco (identificar como “Local” se não foi realizado em um banco ), data e valor para os débitos realizados em Abr/2012:
+SELECT lancamento.data, LATERAL (SELECT banco.nome FROM banco), LATERAL (SELECT lancamento.valor FROM lancamento WHERE lancamento.valor<0) FROM lancamento WHERE lancamento.data BETWEEN '2012-04-01' AND '2012-04-30'; 
+
+18) Matrícula, nome dos funcionários e descrição da função dos funcionários sem seção:
+SELECT funcionario.matricula, funcionario.nome, LATERAL (SELECT funcao.descricao FROM funcao) FROM funcionario WHERE funcionario.secao IS NULL;
+
+19) Nome dos participantes da organização que não tem superior:
+SELECT organizacao.nome FROM organizacao WHERE organizacao.superior IS NULL;
+
+20) Matrícula, nome dos funcionários, descrição da função, descrição da seção e descrição da diretoria dos funcionários que tem seção:
+SELECT funcionario.matricula, funcionario.nome, LATERAL (SELECT funcao.descricao FROM funcao), LATERAL (SELECT secao.descricao FROM secao), LATERAL (SELECT diretoria.descricao FROM diretoria) FROM funcionario WHERE funcionario.secao IS NOT NULL;
+
+21) Descrição do projeto, nome do participante e descrição da plataforma para os programadores:
+SELECT participante.participante, LATERAL (SELECT projeto.descricao FROM projeto), LATERAL (SELECT plataforma.descricao FROM plataforma) FROM participante;
+
+22) Nome do fabricante, modelo e ano do automóvel e nome do cliente para fabricantes, automóveis e clientes com vendas:
+SELECT fabricante.nome, LATERAL (SELECT modelo, ano FROM automovel), LATERAL (SELECT nome FROM cliente) FROM venda;
+
+23) Matrícula, nome e salário dos funcionários das seções 'MAN', 'ADM', 'FPG' e que tenham salário maior ou igual a $3500 ( usar IN ):
+SELECT matricula, nome, salario FROM funcionario WHERE salario>'3500' IN ('MAN', 'ADM', 'FPG');
+
+24) Descrição das seções que tem funcionários com salário maior que $4000 (usar IN):
+SELECT descricao FROM secao WHERE codigo IN (SELECT salario FROM funcionario WHERE salario>'4000');
+
+25) Nome e data de nascimento dos funcionários que nasceram entre 74 e 76 (usar BETWEEN):
+SELECT nome, nascimento FROM funcionario WHERE nascimento BETWEEN '1974-01-01' AND '1976-12-31';
+
+26) Código e descrição das diretorias que tenham funcionários:
+SELECT codigo, descricao, LATERAL (SELECT codigo FROM secao) FROM diretoria WHERE codigo IN (SELECT secao FROM funcionario);
+
+27) Descrição dos projetos que foram desenvolvidos para Android:
+SELECT descricao FROM projeto WHERE codigo IN (SELECT plataforma FROM participante WHERE plataforma='1');
+
+28) Nome dos clientes que compraram carros mexicanos:
+SELECT cliente.nome AS cliente, automovel.pais AS automovel FROM cliente, automovel WHERE codigo.cliente, codigo.automovel IN (SELECT cliente.automovel FROM venda); 
+
+29) Modelo, ano e cor dos automóveis que não foram vendidos:
+SELECT modelo, cor, ano FROM automovel WHERE codigo NOT IN (SELECT automovel FROM venda);
+
+30) Descrição dos produtos que não tem entrada na segunda quinzena de Jan/2010:
+SELECT descricao FROM produto WHERE codigo NOT IN (SELECT produto FROM entrada);
+
+31) Nome e data de nascimento do funcionário mais velho (usar ALL):
+SELECT nome, nascimento FROM funcionario WHERE nascimento > ALL (SELECT nascimento FROM funcionario);
+
+32) Nome e grau de experiência do funcionário (supervisores e técnicos nível II são considerados “experientes”, técnicos nível I são considerados “intermediários”, auxiliares e trainees são considerados “iniciantes”):
+SELECT nome, funcao FROM funcionario WHERE funcao > ALL (SELECT descricao FROM funcao);
+
+33) Código e descrição das seções que possuem técnicos nível II mas não possuem técnicos nível I:
+SELECT funcao, descricao FROM funcao WHERE funcao BETWEEN '3' AND '4' NOT IN (SELECT funcao, secao FROM funcionario);
+
+34) Matrícula, nome e descrição da seção dos funcionários que não pertencem a diretoria de pessoal:
+SELECT matricula, nome, LATERAL (SELECT descricao FROM secao) FROM funcionario WHERE secao NOT IN (SELECT codigo, descricao FROM diretoria WHERE diretoria='PES');

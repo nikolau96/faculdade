@@ -1,0 +1,93 @@
+1)  Obter uma lista da movimentação dos produtos com a data, código do produto, descrição do produto, tipo do movimento ( 'E' para entrada e 'S' para saída ) e quantidade, ordenado por data e código do produto:
+SELECT entrada.data, (SELECT produto.codigo, produto.descricao FROM produto), entrada.quantidade FROM entrada WHERE entrada='E' UNION SELECT saida.data, (SELECT produto.codigo, produto.descricao FROM produto), saida.quantidade FROM saida WHERE saida='S' ORDER BY data;
+
+2) Listar o total de créditos e total de débitos da conta 01, cada total em uma linha:
+SELECT lancamento.valor, (SELECT lancamento.conta FROM lancamento WHERE lancamento.conta='01') FROM lancamento WHERE lancamento.valor>0 GROUP BY valor UNION SELECT lancamento.valor, (SELECT lancamento.conta FROM lancamento WHERE lancamento.conta='01') FROM lancamento WHERE lancamento.valor<0 GROUP BY valor;
+
+3) Listar a descrição da fase e nome dos participantes do projeto 01 ordenados por fase, incluir a supervisão:
+SELECT fase.descricao FROM fase UNION SELECT participante.participante, participante.projeto, participante.fase FROM participante WHERE participante.projeto='01' ORDER BY fase;
+
+4) Listar o total de horas de supervisão dos projetos:
+SELECT projeto.horas_supervisao FROM projeto GROUP BY horas_supervisao;
+
+5) Listar a quantidade de automóveis:
+SELECT COUNT (codigo) FROM automovel;
+
+6) Obter o número de entradas do produto '02':
+SELECT codigo, data, quantidade FROM entrada WHERE produto='02' GROUP BY quantidade;
+
+7) Listar o número de programadores participantes do projeto 02:
+SELECT COUNT(participante) FROM participante WHERE projeto='02';
+
+8) Listar a quantidade de automóveis produzidos no Brasil:
+SELECT COUNT (pais) FROM automovel WHERE pais='Brasil';
+
+9) Obter o número de entradas para cada produto:
+SELECT COUNT (quantidade) FROM entrada GROUP BY produto;
+
+10) Listar o país e o total de veículos produzidos no país:
+SELECT COUNT (modelo) FROM automovel GROUP BY pais;
+
+11) Obter a soma das entradas para cada produto:
+SELECT SUM(quantidade) FROM entrada GROUP BY produto;
+
+12) Listar o país e total de valor pago nos automóveis fabricados no país:
+SELECT SUM(preco) FROM automovel GROUP BY pais;
+
+13) Listar o nome do fabricante e o total de automóveis de cada fabricante:
+SELECT nome FROM fabricante UNION SELECT COUNT(modelo) FROM automovel GROUP BY fabricante;
+
+14) Listar a descrição da plataforma e o total de horas gasto com fases dessa plataforma:
+SELECT descricao FROM plataforma UNION SELECT SUM(horas) FROM participante GROUP BY plataforma;
+
+15) Listar a descrição do projeto, descrição da plataforma e o total de horas gasto com fases dessa plataforma para cada projeto:
+SELECT descricao FROM projeto UNION SELECT descricao FROM plataforma UNION SELECT SUM(horas) FROM participante GROUP BY fase;
+
+16) Listar o nome do fabricante e o total do valor de venda dos automóveis do fabricante:
+SELECT nome FROM fabricante UNION SELECT modelo FROM automovel UNION SELECT SUM(valor) FROM venda GROUP BY automovel;
+
+17) Obter a média das quantidades das saídas de cada produto, ordenado pelo código do produto:
+SELECT AVG (quantidade) FROM saida ORDER BY produto;
+
+18) Obter a maior quantidade saída de cada produto, ordenada por produto:
+SELECT MAX (quantidade) FROM saida ORDER BY produto;
+
+19) Obter os produtos e total de saídas para os produtos que tiveram total de saídas maior que 20, ordenado por código do produto:
+SELECT descricao FROM produto UNION SELECT COUNT (quantidade) FROM saida WHERE quantidade>'20' ORDER BY produto;
+
+20) Listar o nome das revendas e total do valor de venda para as revendas com total de vendas acima de R$ 50.000,00:
+SELECT nome FROM revenda UNION SELECT SUM (valor) FROM venda WHERE valor>'50000.00' GROUP BY revenda;
+
+21) Listar a descrição dos produtos que tiveram mais de 3 entradas:
+SELECT descricao FROM produto UNION SELECT quantidade FROM entrada WHERE quantidade='3' GROUP BY produto;
+
+22) Listar o total de horas de cada fase dos projetos (incluindo supervisão) ordenados pelo total de horas em ordem decrescente:
+SELECT SUM (horas_supervisao) FROM projeto UNION SELECT SUM (horas) FROM participante GROUP BY fase ORDER BY horas DESC;
+
+23) Listar a descrição do projeto e o custo total do projeto:
+SELECT SUM (custo_hora) FROM projeto GROUP BY descricao UNION SELECT SUM (custo_hora) FROM participante;
+
+24) Obter o código do produto, data e quantidade(s) da(s) última(s) saída(s) de cada produto, considerar apenas a data da saída:
+SELECT produto, data, quantidade FROM saida GROUP BY produto ORDER BY data DESC;
+
+25) Obter o código, descrição do produto, total de entradas e total de saídas do produtos, ordenado pela descrição dos produtos:
+SELECT * FROM produto ORDER BY descricao UNION SELECT SUM (quantidade) FROM entrada, saida GROUP BY produto; 
+
+26) Obter o código, descrição e o saldo da movimentação dos produtos, ordenados pelo código dos produtos:
+SELECT * FROM produto UNION SELECT AVG (quantidade) FROM entrada, saida ORDER BY produto;
+
+27) Obter o código, descrição e o saldo da movimentação dos produtos que tem saldo menor ou igual a 15, ordenados pela descrição dos produtos:
+SELECT * FROM produto UNION SELECT AVG (quantidade) FROM entrada,saida WHERE quantidade<='15' ORDER BY produto.descricao;
+
+28) Obter o código, descrição, data e saldo da movimentação do produto na data ordenado por produto e data:
+SELECT * FROM produto UNION SELECT AVG (quantidade), data FROM entrada, saida ORDER BY produto, data;
+
+29) Obter o código, descrição e total dos salários das diretorias com total de salários maior que $12000,00:
+SELECT * FROM diretoria UNION SELECT SUM (salario) FROM funcionario WHERE salario>'12000.00';
+
+30) Obter o total dos maiores salários de cada diretoria:
+SELECT SUM (salario) FROM funcionario GROUP BY secao ORDER BY salario DESC;
+
+31) Obter para cada produto o código e saldo da movimentação na primeira quinzena e na segunda
+quinzena do mês 03/2010:
+SELECT * FROM produto UNION SELECT AVG (quantidade) FROM entrada, saida WHERE data BETWEEN '2010-03-01' AND '2010-03-30';
