@@ -1,0 +1,28 @@
+Escreva a sentença SQL para:
+
+a) Aumentar em 10% o salário dos funcionários com salário menor que R$1500,00:
+UPDATE funcionario SET salario+='0.1' WHERE salario<'1500.00';
+
+b) Reduzir em 5% o maior salário:
+UPDATE funcionario SET salario-='0.1' WHERE salario>'4500.00';
+
+c) Mudar os alunos da 1ª série B do curso de Tecnologia da Informação para a 1ª série A:
+UPDATE aluno SET turma='1a' WHERE curso='Tecnologia da Informação';
+
+d) Aumentar em 15% os preços dos automóveis fabricados na Argentina pela Ford, exibindo o código, modelo e novo valor dos automóveis:
+UPDATE automovel SET preco+='0.15' WHERE pais='Argentina';
+
+e) Equiparar o salário dos técnicos II ao maior salário da seção onde trabalha:
+UPDATE funcionario SET salario='4600.00' WHERE secao='4';
+
+f) Deletar todos os alunos sem nenhum curso:
+DELETE FROM aluno WHERE curso IS NULL;
+
+g) Deletar as salas que não tem aluno:
+DELETE FROM aluno WHERE sala IS NULL;
+
+h) Deletar as diretorias que não tem funcionário:
+DELETE FROM funcionario WHERE secao IS NULL;
+
+
+i) Deletar as vendas de carros da Ford realizadas em SP:
