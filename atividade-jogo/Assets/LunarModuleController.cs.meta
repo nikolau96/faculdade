@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c3fd9f70f0011e744b7d60ead1fac111
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - chrashSound: {instanceID: 0}
+  - landingSound: {instanceID: 0}
+  - audiosource: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
